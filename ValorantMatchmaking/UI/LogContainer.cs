@@ -21,7 +21,7 @@ namespace ValorantMatchmaking.UI
         public Font titleFont { get; set; } = new Font("Consolas", 9);
 
         //Shit way need to change
-        public List<string> logElements { get; set; } = new List<string> { "Random UI Log", "Hacking 14 Yearolds", "Deleting Valorant", "Fake Log", "Kinda long test string that isnt so long", "Yikes", "Test String 11", "Test String 11", "Test String 11", "Test String 11", "Test String 11" };
+        public List<string> logElements { get; set; } = new List<string> { "Random UI Log", "-----------UI Log-----------", "Deleting Valorant", "Fake Log", "Kinda long test string that isnt so long", "Yikes", "Test String 11", "Test String 11", "Test String 11", "Test String 11", "Test String 11" };
         public List<DateTime> logTimes { get; set; } = new List<DateTime> { DateTime.Now };
 
         public LogContainer()
