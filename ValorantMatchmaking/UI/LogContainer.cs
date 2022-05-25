@@ -20,9 +20,10 @@ namespace ValorantMatchmaking.UI
         public Brush logEntryBrush { get; set; } = new SolidBrush(Color.Gray);
         public Font titleFont { get; set; } = new Font("Consolas", 9);
 
-        //Shit way need to change
+        //Shit way needs to change
         public List<string> logElements { get; set; } = new List<string> { "Random UI Log", "-----------UI Log-----------", "Deleting Valorant", "Fake Log", "Kinda long test string that isnt so long", "Yikes", "Test String 11", "Test String 11", "Test String 11", "Test String 11", "Test String 11" };
         public List<DateTime> logTimes { get; set; } = new List<DateTime> { DateTime.Now };
+        public int maxVisibleElements { get; set; } = 7;
 
         public LogContainer()
         {
@@ -40,19 +41,13 @@ namespace ValorantMatchmaking.UI
 
             e.Graphics.DrawString(containerTitle, titleFont, titleBrush, this.Width / 2, titleFont.Size, textFormat);
 
-            if (logElements.Count() > 7)
+            if (logElements.Count() > maxVisibleElements)
             {
                logElements.RemoveAt(0);
             }
 
             for(int x = 0; x <= logElements.Count() - 1; x++)
             {
-                if (x > 6)
-                {
-                    logElements.Remove(logElements[x]);
-                    return;
-                }
-
                 e.Graphics.DrawString(logElements[x], titleFont, logEntryBrush, this.Width / 2, titleFont.Size + ((x + 1) * 15), textFormat);
             }
         }

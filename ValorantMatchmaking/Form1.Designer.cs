@@ -137,6 +137,7 @@
             this.EventLogContainer.Location = new System.Drawing.Point(530, 530);
             this.EventLogContainer.logElements = ((System.Collections.Generic.List<string>)(resources.GetObject("EventLogContainer.logElements")));
             this.EventLogContainer.logTimes = ((System.Collections.Generic.List<System.DateTime>)(resources.GetObject("EventLogContainer.logTimes")));
+            this.EventLogContainer.maxVisibleElements = 7;
             this.EventLogContainer.Name = "EventLogContainer";
             this.EventLogContainer.Size = new System.Drawing.Size(502, 135);
             this.EventLogContainer.TabIndex = 13;
@@ -196,12 +197,12 @@
             // 
             this.playerDataContainer10.Location = new System.Drawing.Point(22, 434);
             this.playerDataContainer10.Name = "playerDataContainer10";
-            this.playerDataContainer10.playerAgent = "add6443a-41bd-e414-f6ad-e58d267f4e95";
+            this.playerDataContainer10.playerAgent = ValorantMatchmaking.SDK.PlayerData.Agent.Viper;
             this.playerDataContainer10.playerDataFont = new System.Drawing.Font("Consolas", 9F);
             this.playerDataContainer10.playerElo = 820;
             this.playerDataContainer10.playerName = "Icicle#1736";
             this.playerDataContainer10.playerNameFont = new System.Drawing.Font("Consolas", 11F);
-            this.playerDataContainer10.playerRank = 16;
+            this.playerDataContainer10.playerRank = ValorantMatchmaking.SDK.PlayerData.Rank.Silver1;
             this.playerDataContainer10.playerRankedRating = 72;
             this.playerDataContainer10.Size = new System.Drawing.Size(502, 90);
             this.playerDataContainer10.TabIndex = 9;
@@ -210,12 +211,12 @@
             // 
             this.playerDataContainer9.Location = new System.Drawing.Point(530, 434);
             this.playerDataContainer9.Name = "playerDataContainer9";
-            this.playerDataContainer9.playerAgent = "add6443a-41bd-e414-f6ad-e58d267f4e95";
+            this.playerDataContainer9.playerAgent = ValorantMatchmaking.SDK.PlayerData.Agent.Jett;
             this.playerDataContainer9.playerDataFont = new System.Drawing.Font("Consolas", 9F);
             this.playerDataContainer9.playerElo = 820;
             this.playerDataContainer9.playerName = "hyDra#Papi";
             this.playerDataContainer9.playerNameFont = new System.Drawing.Font("Consolas", 11F);
-            this.playerDataContainer9.playerRank = 22;
+            this.playerDataContainer9.playerRank = ValorantMatchmaking.SDK.PlayerData.Rank.Diamond3;
             this.playerDataContainer9.playerRankedRating = 72;
             this.playerDataContainer9.Size = new System.Drawing.Size(502, 90);
             this.playerDataContainer9.TabIndex = 8;
@@ -224,12 +225,12 @@
             // 
             this.playerDataContainer8.Location = new System.Drawing.Point(22, 338);
             this.playerDataContainer8.Name = "playerDataContainer8";
-            this.playerDataContainer8.playerAgent = "add6443a-41bd-e414-f6ad-e58d267f4e95";
+            this.playerDataContainer8.playerAgent = ValorantMatchmaking.SDK.PlayerData.Agent.Sage;
             this.playerDataContainer8.playerDataFont = new System.Drawing.Font("Consolas", 9F);
             this.playerDataContainer8.playerElo = 820;
             this.playerDataContainer8.playerName = "Jake#2134";
             this.playerDataContainer8.playerNameFont = new System.Drawing.Font("Consolas", 11F);
-            this.playerDataContainer8.playerRank = 24;
+            this.playerDataContainer8.playerRank = ValorantMatchmaking.SDK.PlayerData.Rank.Platinum3;
             this.playerDataContainer8.playerRankedRating = 72;
             this.playerDataContainer8.Size = new System.Drawing.Size(502, 90);
             this.playerDataContainer8.TabIndex = 7;
@@ -238,12 +239,12 @@
             // 
             this.playerDataContainer7.Location = new System.Drawing.Point(530, 338);
             this.playerDataContainer7.Name = "playerDataContainer7";
-            this.playerDataContainer7.playerAgent = "add6443a-41bd-e414-f6ad-e58d267f4e95";
+            this.playerDataContainer7.playerAgent = ValorantMatchmaking.SDK.PlayerData.Agent.Fade;
             this.playerDataContainer7.playerDataFont = new System.Drawing.Font("Consolas", 9F);
             this.playerDataContainer7.playerElo = 820;
             this.playerDataContainer7.playerName = "hyDra2#Baby";
             this.playerDataContainer7.playerNameFont = new System.Drawing.Font("Consolas", 11F);
-            this.playerDataContainer7.playerRank = 13;
+            this.playerDataContainer7.playerRank = ValorantMatchmaking.SDK.PlayerData.Rank.Immortal3;
             this.playerDataContainer7.playerRankedRating = 72;
             this.playerDataContainer7.Size = new System.Drawing.Size(502, 90);
             this.playerDataContainer7.TabIndex = 6;
@@ -252,12 +253,12 @@
             // 
             this.playerDataContainer6.Location = new System.Drawing.Point(530, 242);
             this.playerDataContainer6.Name = "playerDataContainer6";
-            this.playerDataContainer6.playerAgent = "add6443a-41bd-e414-f6ad-e58d267f4e95";
+            this.playerDataContainer6.playerAgent = ValorantMatchmaking.SDK.PlayerData.Agent.Killjoy;
             this.playerDataContainer6.playerDataFont = new System.Drawing.Font("Consolas", 9F);
             this.playerDataContainer6.playerElo = 820;
             this.playerDataContainer6.playerName = "PoppyStealer#2549";
             this.playerDataContainer6.playerNameFont = new System.Drawing.Font("Consolas", 11F);
-            this.playerDataContainer6.playerRank = 4;
+            this.playerDataContainer6.playerRank = ValorantMatchmaking.SDK.PlayerData.Rank.Platinum1;
             this.playerDataContainer6.playerRankedRating = 72;
             this.playerDataContainer6.Size = new System.Drawing.Size(502, 90);
             this.playerDataContainer6.TabIndex = 5;
@@ -266,12 +267,12 @@
             // 
             this.playerDataContainer5.Location = new System.Drawing.Point(22, 242);
             this.playerDataContainer5.Name = "playerDataContainer5";
-            this.playerDataContainer5.playerAgent = "add6443a-41bd-e414-f6ad-e58d267f4e95";
+            this.playerDataContainer5.playerAgent = ValorantMatchmaking.SDK.PlayerData.Agent.Neon;
             this.playerDataContainer5.playerDataFont = new System.Drawing.Font("Consolas", 9F);
             this.playerDataContainer5.playerElo = 820;
             this.playerDataContainer5.playerName = "Test#Long";
             this.playerDataContainer5.playerNameFont = new System.Drawing.Font("Consolas", 11F);
-            this.playerDataContainer5.playerRank = 18;
+            this.playerDataContainer5.playerRank = ValorantMatchmaking.SDK.PlayerData.Rank.Radiant;
             this.playerDataContainer5.playerRankedRating = 72;
             this.playerDataContainer5.Size = new System.Drawing.Size(502, 90);
             this.playerDataContainer5.TabIndex = 4;
@@ -280,12 +281,12 @@
             // 
             this.playerDataContainer4.Location = new System.Drawing.Point(530, 146);
             this.playerDataContainer4.Name = "playerDataContainer4";
-            this.playerDataContainer4.playerAgent = "add6443a-41bd-e414-f6ad-e58d267f4e95";
+            this.playerDataContainer4.playerAgent = ValorantMatchmaking.SDK.PlayerData.Agent.Skye;
             this.playerDataContainer4.playerDataFont = new System.Drawing.Font("Consolas", 9F);
             this.playerDataContainer4.playerElo = 820;
             this.playerDataContainer4.playerName = "Tafiisgoated#5376";
             this.playerDataContainer4.playerNameFont = new System.Drawing.Font("Consolas", 11F);
-            this.playerDataContainer4.playerRank = 19;
+            this.playerDataContainer4.playerRank = ValorantMatchmaking.SDK.PlayerData.Rank.Bronze2;
             this.playerDataContainer4.playerRankedRating = 72;
             this.playerDataContainer4.Size = new System.Drawing.Size(502, 90);
             this.playerDataContainer4.TabIndex = 3;
@@ -294,12 +295,12 @@
             // 
             this.playerDataContainer3.Location = new System.Drawing.Point(22, 146);
             this.playerDataContainer3.Name = "playerDataContainer3";
-            this.playerDataContainer3.playerAgent = "add6443a-41bd-e414-f6ad-e58d267f4e95";
+            this.playerDataContainer3.playerAgent = ValorantMatchmaking.SDK.PlayerData.Agent.Breach;
             this.playerDataContainer3.playerDataFont = new System.Drawing.Font("Consolas", 9F);
             this.playerDataContainer3.playerElo = 820;
             this.playerDataContainer3.playerName = "ExWolf#WOLF";
             this.playerDataContainer3.playerNameFont = new System.Drawing.Font("Consolas", 11F);
-            this.playerDataContainer3.playerRank = 8;
+            this.playerDataContainer3.playerRank = ValorantMatchmaking.SDK.PlayerData.Rank.Platinum1;
             this.playerDataContainer3.playerRankedRating = 72;
             this.playerDataContainer3.Size = new System.Drawing.Size(502, 90);
             this.playerDataContainer3.TabIndex = 2;
@@ -308,12 +309,12 @@
             // 
             this.playerDataContainer2.Location = new System.Drawing.Point(530, 50);
             this.playerDataContainer2.Name = "playerDataContainer2";
-            this.playerDataContainer2.playerAgent = "add6443a-41bd-e414-f6ad-e58d267f4e95";
+            this.playerDataContainer2.playerAgent = ValorantMatchmaking.SDK.PlayerData.Agent.Yoru;
             this.playerDataContainer2.playerDataFont = new System.Drawing.Font("Consolas", 9F);
             this.playerDataContainer2.playerElo = 820;
             this.playerDataContainer2.playerName = "Kimeriarin#RU1";
             this.playerDataContainer2.playerNameFont = new System.Drawing.Font("Consolas", 11F);
-            this.playerDataContainer2.playerRank = 18;
+            this.playerDataContainer2.playerRank = ValorantMatchmaking.SDK.PlayerData.Rank.Iron3;
             this.playerDataContainer2.playerRankedRating = 72;
             this.playerDataContainer2.Size = new System.Drawing.Size(502, 90);
             this.playerDataContainer2.TabIndex = 1;
@@ -322,12 +323,12 @@
             // 
             this.playerDataContainer1.Location = new System.Drawing.Point(22, 50);
             this.playerDataContainer1.Name = "playerDataContainer1";
-            this.playerDataContainer1.playerAgent = "add6443a-41bd-e414-f6ad-e58d267f4e95";
+            this.playerDataContainer1.playerAgent = ValorantMatchmaking.SDK.PlayerData.Agent.Cypher;
             this.playerDataContainer1.playerDataFont = new System.Drawing.Font("Consolas", 9F);
             this.playerDataContainer1.playerElo = 820;
             this.playerDataContainer1.playerName = "TenZ#FAKE";
             this.playerDataContainer1.playerNameFont = new System.Drawing.Font("Consolas", 11F);
-            this.playerDataContainer1.playerRank = 6;
+            this.playerDataContainer1.playerRank = ValorantMatchmaking.SDK.PlayerData.Rank.Gold2;
             this.playerDataContainer1.playerRankedRating = 72;
             this.playerDataContainer1.Size = new System.Drawing.Size(502, 90);
             this.playerDataContainer1.TabIndex = 0;

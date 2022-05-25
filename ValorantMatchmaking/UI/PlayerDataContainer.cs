@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ValorantMatchmaking.SDK;
 
 namespace ValorantMatchmaking.UI
 {
     public partial class PlayerDataContainer : UserControl
     {
         public string playerName { get; set; } = "placeholder#1000";
-        public string playerAgent { get; set; } = "add6443a-41bd-e414-f6ad-e58d267f4e95";
-        public int playerRank { get; set; } = 23;
+        public PlayerData.Agent playerAgent { get; set; } = PlayerData.Agent.Jett;
+        public PlayerData.Rank playerRank { get; set; } = PlayerData.Rank.Radiant;
         public int playerRankedRating { get; set; } = 100;
         public int playerElo { get; set; } = 820;
 
@@ -48,8 +49,8 @@ namespace ValorantMatchmaking.UI
             e.Graphics.FillRectangle(playerRankProgressOutlineBrush, rankProgressOutline);
             e.Graphics.FillRectangle(playerRankProgressBrush, rankProgress);
 
-            e.Graphics.DrawImage(Image.FromFile($"A:\\Valorant\\Valorant\\bin\\Debug\\ValorantAPICache\\AgentIcons\\{playerAgent}.png"), agentImage);
-            e.Graphics.DrawImage(Image.FromFile($"A:\\Valorant\\Valorant\\bin\\Debug\\ValorantAPICache\\RankIcons\\{playerRank}.png"), rankImage);
+            e.Graphics.DrawImage(Image.FromFile($"A:\\Valorant\\Valorant\\bin\\Debug\\ValorantAPICache\\AgentIcons\\{PlayerData.GetUUID(playerAgent)}.png"), agentImage);
+            e.Graphics.DrawImage(Image.FromFile($"A:\\Valorant\\Valorant\\bin\\Debug\\ValorantAPICache\\RankIcons\\{(int)playerRank}.png"), rankImage);
 
             e.Graphics.DrawString(playerName, playerNameFont, playerNameBrush,  100, 10);
 
