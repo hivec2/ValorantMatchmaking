@@ -30,14 +30,16 @@ namespace ValorantMatchmaking
             SDK.LocalData.VerifyAPICache();
             if (GameData.IsRunning())
             {
-                
-                PanelDataContainer.Refresh();
+
+
             }
             else
             {
                 EventLogContainer.AddLogElement("Error: Valorant isnt Running.");
                 Logger.Instance.Error("Application failed to initialize | Game isnt running.");
             }
+
+            PanelDataContainer.Refresh();
         }
     }
 }
