@@ -21,25 +21,51 @@ namespace ValorantMatchmaking.SDK
         public static string riotClientEntitlementToken { get; set; } = string.Empty;
         public static void GetLockfileData()
         {
+            if (Logger.Instance.verbose)
+                Logger.Instance.Info($"Looking for Lockfile. ({_riotClientLockfileLocation})");
+
             if (!File.Exists(_riotClientLockfileLocation))
+            {
+                if (Logger.Instance.verbose)
+                    Logger.Instance.Info("Lockfile doesnt exist.");
                 return;
-          
+            }
+
+            if (Logger.Instance.verbose)
+                Logger.Instance.Info($"Found Lockfile");
+
+
             using (FileStream fileStream = new FileStream(_riotClientLockfileLocation, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
             {
                 using (StreamReader sr = new StreamReader(fileStream))
                 {
-                    string currentLine = sr.ReadLine();
+                    if (Logger.Instance.verbose)
+                        Logger.Instance.Info("Scanning the Lockfile for the Riot Clients local Port and Password");
+
+                    var currentLine = sr.ReadLine();
 
                     riotClientPort = int.Parse(currentLine.Split(':')[2]);
                     riotClientPassword = currentLine.Split(':')[3];
 
-                    sr.Dispose();
+                    if (riotClientPort != 0 && riotClientPassword != string.Empty)
+                    {
+                        if (Logger.Instance.verbose)
+                            Logger.Instance.Info("Found the Riot Clients local Port and Password");
+
+                        Logger.Instance.Info($"Riot Client Port: {riotClientPort}");
+                        Logger.Instance.Info($"Riot Client Password: {riotClientPassword}");
+                    }
                 }
-                fileStream.Dispose();
             }
         }
         public static void GetTokens()
         {
+            if (Logger.Instance.verbose)
+                Logger.Instance.Info("Attempting to get Local Access & Entitlement tokens");
+
+            if (Logger.Instance.verbose)
+                Logger.Instance.Info($"Creating a request to https://127.0.0.1:{riotClientPort}/entitlements/v1/token");
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://127.0.0.1:{riotClientPort}/entitlements/v1/token");
             System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
             request.Headers.Add("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{riotClientPassword}"))}");
@@ -54,6 +80,9 @@ namespace ValorantMatchmaking.SDK
                         JToken versionJsonData = JObject.FromObject(JsonConvert.DeserializeObject(reader.ReadToEnd()));
                         riotClientAccessToken = (string)versionJsonData["accessToken"];
                         riotClientEntitlementToken = (string)versionJsonData["token"];
+
+                        if (Logger.Instance.verbose)
+                            Logger.Instance.Info($"Retrieved Access & Entitilement token");
                     }
                 }
             }
