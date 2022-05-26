@@ -135,8 +135,6 @@
             // 
             this.EventLogContainer.containerTitle = "Event Logs";
             this.EventLogContainer.Location = new System.Drawing.Point(530, 530);
-            this.EventLogContainer.logElements = ((System.Collections.Generic.List<string>)(resources.GetObject("EventLogContainer.logElements")));
-            this.EventLogContainer.logTimes = ((System.Collections.Generic.List<System.DateTime>)(resources.GetObject("EventLogContainer.logTimes")));
             this.EventLogContainer.maxVisibleElements = 7;
             this.EventLogContainer.Name = "EventLogContainer";
             this.EventLogContainer.Size = new System.Drawing.Size(502, 135);

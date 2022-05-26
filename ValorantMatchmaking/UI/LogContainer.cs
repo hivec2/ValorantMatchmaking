@@ -21,8 +21,7 @@ namespace ValorantMatchmaking.UI
         public Font titleFont { get; set; } = new Font("Consolas", 9);
 
         //Shit way needs to change
-        public List<string> logElements { get; set; } = new List<string> { "Random UI Log", "-----------UI Log-----------", "Deleting Valorant", "Fake Log", "Kinda long test string that isnt so long", "Yikes", "Test String 11", "Test String 11", "Test String 11", "Test String 11", "Test String 11" };
-        public List<DateTime> logTimes { get; set; } = new List<DateTime> { DateTime.Now };
+        private List<string> _logElements { get; set; } = new List<string> { "Welcome to ValorantMatchmaking", "Press Initialize to get started" };
         public int maxVisibleElements { get; set; } = 7;
 
         public LogContainer()
@@ -41,15 +40,19 @@ namespace ValorantMatchmaking.UI
 
             e.Graphics.DrawString(containerTitle, titleFont, titleBrush, this.Width / 2, titleFont.Size, textFormat);
 
-            if (logElements.Count() > maxVisibleElements)
-            {
-               logElements.RemoveAt(0);
-            }
+            if (_logElements.Count() > maxVisibleElements)
+                _logElements.RemoveAt(0);
 
-            for(int x = 0; x <= logElements.Count() - 1; x++)
+            for(int x = 0; x < _logElements.Count(); x++)
             {
-                e.Graphics.DrawString(logElements[x], titleFont, logEntryBrush, this.Width / 2, titleFont.Size + ((x + 1) * 15), textFormat);
+                e.Graphics.DrawString(_logElements[x], titleFont, logEntryBrush, this.Width / 2, titleFont.Size + ((x + 1) * 15), textFormat);
             }
+        }
+
+        public void AddLogElement(string input)
+        {
+            _logElements.Add(input);
+            this.Refresh();
         }
     }
 }

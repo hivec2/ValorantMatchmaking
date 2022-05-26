@@ -27,6 +27,7 @@ namespace ValorantMatchmaking
         {
             SDK.GameData.GetVersionData();
             PanelDataContainer.Refresh();
+            EventLogContainer.AddLogElement("Testing");
         }
     }
 }
