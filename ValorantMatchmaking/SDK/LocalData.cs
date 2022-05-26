@@ -88,5 +88,12 @@ namespace ValorantMatchmaking.SDK
             }
            
         }
+        public static void VerifyAPICache()
+        {
+            if (!GameData.apiCacheVerified)
+            {
+                //TODO: This
+            }
+        }
     }
 }
