@@ -27,7 +27,7 @@ namespace ValorantMatchmaking
 
         private void InitializationButton_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists(Application.StartupPath + "\\ValorantAPICache"))
+            if (!Directory.Exists(LocalData.valorantAPICachePath))
             {
                 GameData.apiCacheVerified = false;
                 SDK.LocalData.VerifyAPICache();

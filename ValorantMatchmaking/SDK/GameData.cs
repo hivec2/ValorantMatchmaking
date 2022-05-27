@@ -43,11 +43,11 @@ namespace ValorantMatchmaking.SDK
             WebClient client = new WebClient();
             string versionData = client.DownloadString("https://valorant-api.com/v1/version");
                 
-            if (!File.Exists("ValorantAPICache\\VersionData.json"))
-                File.WriteAllText("ValorantAPICache\\VersionData.json", versionData);
+            if (!File.Exists(LocalData.valorantAPICachePath + $"VersionData.json"))
+                File.WriteAllText(LocalData.valorantAPICachePath + $"VersionData.json", versionData);
 
             JToken versionJsonData = JObject.FromObject(JsonConvert.DeserializeObject(versionData));
-            JToken versionJsonDataCached = JObject.FromObject(JsonConvert.DeserializeObject(File.ReadAllText("ValorantAPICache\\VersionData.json")));
+            JToken versionJsonDataCached = JObject.FromObject(JsonConvert.DeserializeObject(File.ReadAllText(LocalData.valorantAPICachePath + $"VersionData.json")));
 
             gameVersion = (string)versionJsonData["data"]["version"];
             clientVersion = (string)versionJsonData["data"]["riotClientVersion"];
@@ -57,7 +57,7 @@ namespace ValorantMatchmaking.SDK
             if (gameVersion != gameVersionCached || clientVersion != clientVersionCached)
             {
                 apiCacheVerified = false;
-                File.WriteAllText("ValorantAPICache\\VersionData.json", versionData);
+                File.WriteAllText(LocalData.valorantAPICachePath + $"VersionData.json", versionData);
             }
             else
                 apiCacheVerified = true;

@@ -16,6 +16,8 @@ namespace ValorantMatchmaking.SDK
         private static string _riotClientLockfileLocation { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Riot Games\\Riot Client\\Config\\lockfile";
         private static string _riotClientPlatform { get; set; } = "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9";
 
+        public static string valorantAPICachePath { get; set; } = Application.StartupPath + "\\ValorantAPICache\\";
+
         public static int riotClientPort { get; set; } = 0;
         public static string riotClientPassword { get; set; } = string.Empty;
         public static string riotClientAccessToken { get; set; } = string.Empty;
@@ -95,24 +97,24 @@ namespace ValorantMatchmaking.SDK
             {
                 WebClient client = new WebClient();
 
-                if (!Directory.Exists(Application.StartupPath + "\\ValorantAPICache")) 
-                    Directory.CreateDirectory(Application.StartupPath + "\\ValorantAPICache");
+                if (!Directory.Exists(valorantAPICachePath)) 
+                    Directory.CreateDirectory(valorantAPICachePath);
 
-                if (!Directory.Exists(Application.StartupPath + "\\ValorantAPICache\\RankIcons"))
-                    Directory.CreateDirectory(Application.StartupPath + "\\ValorantAPICache\\RankIcons");
+                if (!Directory.Exists(valorantAPICachePath + "RankIcons"))
+                    Directory.CreateDirectory(valorantAPICachePath + "RankIcons");
 
-                if (!Directory.Exists(Application.StartupPath + "\\ValorantAPICache\\AgentIcons"))
-                    Directory.CreateDirectory(Application.StartupPath + "\\ValorantAPICache\\AgentIcons");
+                if (!Directory.Exists(valorantAPICachePath + "AgentIcons"))
+                    Directory.CreateDirectory(valorantAPICachePath + "AgentIcons");
 
                 string competitiveRanks = client.DownloadString("https://valorant-api.com/v1/competitivetiers?language=en-US");
-                File.WriteAllText(Application.StartupPath + "\\ValorantAPICache\\CompetitiveRankData.json", competitiveRanks);
+                File.WriteAllText(valorantAPICachePath + "CompetitiveRankData.json", competitiveRanks);
 
                 dynamic competitiveRanksJson = JsonConvert.DeserializeObject(competitiveRanks);
                 int imageNumber = 0;
 
                 foreach (dynamic rank in competitiveRanksJson.data[3].tiers)
                 {
-                    if (!File.Exists(Application.StartupPath + $"\\ValorantAPICache\\RankIcons\\{(string)rank.divisionName}.png"))
+                    if (!File.Exists(valorantAPICachePath + $"RankIcons\\{(string)rank.divisionName}.png"))
                     {
                         try
                         {
@@ -123,13 +125,13 @@ namespace ValorantMatchmaking.SDK
                             {
                                 for (int x = 0; x < 2; x++)
                                 {
-                                    client.DownloadFile((string)rank.smallIcon, Application.StartupPath + $"\\ValorantAPICache\\RankIcons\\{imageNumber}.png");
+                                    client.DownloadFile((string)rank.smallIcon, valorantAPICachePath + $"RankIcons\\{imageNumber}.png");
                                     imageNumber++;
                                     continue;
                                 }
                             }
 
-                            client.DownloadFile((string)rank.smallIcon, Application.StartupPath + $"\\ValorantAPICache\\RankIcons\\{imageNumber}.png");
+                            client.DownloadFile((string)rank.smallIcon, valorantAPICachePath + $"RankIcons\\{imageNumber}.png");
                             imageNumber++;
 
                         }
@@ -141,24 +143,26 @@ namespace ValorantMatchmaking.SDK
                 }
 
                 string agentData = client.DownloadString("https://valorant-api.com/v1/agents?language=en-US");
-                File.WriteAllText(Application.StartupPath + $"\\ValorantAPICache\\AgentData.json", agentData);
+                File.WriteAllText(valorantAPICachePath + "AgentData.json", agentData);
                 dynamic agentDataJson = JsonConvert.DeserializeObject(agentData);
                 foreach (dynamic agent in agentDataJson.data)
                 {
-                    if (!File.Exists($"ValorantAPICache\\AgentIcons\\{(string)agent.uuid}.png"))
+                    if (!File.Exists(valorantAPICachePath + $"AgentIcons\\{(string)agent.uuid}.png"))
                     {
-                        client.DownloadFile((string)agent.displayIcon, Application.StartupPath + $"\\ValorantAPICache\\AgentIcons\\{(string)agent.uuid}.png");
+                        client.DownloadFile((string)agent.displayIcon, valorantAPICachePath + $"AgentIcons\\{(string)agent.uuid}.png");
                     }
                 }
 
                 string skinData = client.DownloadString("https://valorant-api.com/v1/weapons/skinchromas?language=en-US");
-                File.WriteAllText(Application.StartupPath + $"\\ValorantAPICache\\SkinData.json", skinData);
+                File.WriteAllText(valorantAPICachePath + "SkinData.json", skinData);
 
 
                 string playerCardData = client.DownloadString("https://valorant-api.com/v1/playercards");
-                File.WriteAllText(Application.StartupPath + $"\\ValorantAPICache\\PlayerCardData.json", playerCardData);
+                File.WriteAllText(valorantAPICachePath + "PlayerCardData.json", playerCardData);
 
+                GameData.apiCacheVerified = true;
 
+                client.Dispose();
             }
         }
     }

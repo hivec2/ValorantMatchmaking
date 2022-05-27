@@ -53,8 +53,8 @@ namespace ValorantMatchmaking.UI
             e.Graphics.FillRectangle(playerRankProgressOutlineBrush, rankProgressOutline);
             e.Graphics.FillRectangle(playerRankProgressBrush, rankProgress);
 
-            e.Graphics.DrawImage(Image.FromFile($"A:\\Valorant\\Valorant\\bin\\Debug\\ValorantAPICache\\AgentIcons\\{PlayerData.GetUUID(playerAgent)}.png"), agentImage);
-            e.Graphics.DrawImage(Image.FromFile($"A:\\Valorant\\Valorant\\bin\\Debug\\ValorantAPICache\\RankIcons\\{(int)playerRank}.png"), rankImage);
+            e.Graphics.DrawImage(Image.FromFile(LocalData.valorantAPICachePath + $"AgentIcons\\{PlayerData.GetUUID(playerAgent)}.png"), agentImage);
+            e.Graphics.DrawImage(Image.FromFile(LocalData.valorantAPICachePath + $"RankIcons\\{(int)playerRank}.png"), rankImage);
 
             e.Graphics.DrawString(playerName, playerNameFont, playerNameBrush,  100, 10);
 
