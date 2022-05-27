@@ -92,7 +92,7 @@ namespace ValorantMatchmaking.SDK
         {
             if (!GameData.apiCacheVerified)
             {
-                //TODO: This
+                
             }
         }
     }

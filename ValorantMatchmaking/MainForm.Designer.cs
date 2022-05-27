@@ -31,7 +31,6 @@
             System.Drawing.StringFormat stringFormat1 = new System.Drawing.StringFormat();
             System.Drawing.StringFormat stringFormat2 = new System.Drawing.StringFormat();
             System.Drawing.StringFormat stringFormat3 = new System.Drawing.StringFormat();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             System.Drawing.StringFormat stringFormat4 = new System.Drawing.StringFormat();
             System.Drawing.StringFormat stringFormat5 = new System.Drawing.StringFormat();
             System.Drawing.StringFormat stringFormat6 = new System.Drawing.StringFormat();
@@ -313,7 +312,7 @@
             this.playerDataContainer2.playerName = "Kimeriarin#RU1";
             this.playerDataContainer2.playerNameFont = new System.Drawing.Font("Consolas", 11F);
             this.playerDataContainer2.playerRank = ValorantMatchmaking.SDK.PlayerData.Rank.Iron3;
-            this.playerDataContainer2.playerRankedRating = 72;
+            this.playerDataContainer2.playerRankedRating = 52;
             this.playerDataContainer2.Size = new System.Drawing.Size(502, 90);
             this.playerDataContainer2.TabIndex = 1;
             // 

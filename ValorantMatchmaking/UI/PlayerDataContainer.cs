@@ -16,7 +16,7 @@ namespace ValorantMatchmaking.UI
         public string playerName { get; set; } = "placeholder#1000";
         public PlayerData.Agent playerAgent { get; set; } = PlayerData.Agent.Jett;
         public PlayerData.Rank playerRank { get; set; } = PlayerData.Rank.Radiant;
-        public int playerRankedRating { get; set; } = 100;
+        public int playerRankedRating { get; set; } = 50;
         public int playerElo { get; set; } = 820;
 
         public Brush backgroundBrush { get; set; } = new SolidBrush(Color.FromArgb(35, 5, 20));
@@ -36,11 +36,15 @@ namespace ValorantMatchmaking.UI
 
         private void PlayerDataContainer_Paint(object sender, PaintEventArgs e)
         {
+            //TODO: Update all ValorantAPICache paths to work entirely from app data instead of my current hardcoded paths for images etc
+            //TODO v2: PlayerDataContainer actually needs to handle player data instead of the current hardcoded data  that was used for UI design
+            //Edit: theres actually alot i need todo in terms of non hardcoded shit, widths heights positions overall
+
             Rectangle background = new Rectangle() { X = 2, Y = 2, Height = this.Height - 4, Width = this.Width - 4};
             Rectangle backgroundOutline = new Rectangle() { X = 0, Y = 0, Height = this.Height, Width = this.Width };
             Rectangle agentImage = new Rectangle() { X = 10, Y = this.Height / 2 - 40, Height = 80, Width = 80 };
             Rectangle rankImage = new Rectangle() { X = 100, Y = this.Height / 2  + 2, Height = 40, Width = 40 };
-            Rectangle rankProgress = new Rectangle() { X = 105, Y = 31, Height = 3, Width = 368 };
+            Rectangle rankProgress = new Rectangle() { X = 105, Y = 31, Height = 3, Width = (int)((playerRankedRating / 100f) * 368f) };
             Rectangle rankProgressOutline = new Rectangle() { X = 104, Y = 30, Height = 5, Width = 370 };
 
             e.Graphics.FillRectangle(backgroundOutlineBrush, backgroundOutline);

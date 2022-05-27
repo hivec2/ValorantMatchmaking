@@ -23,9 +23,7 @@ namespace ValorantMatchmaking.SDK
             foreach (Process process in processList)
             {
                 if (process.ProcessName.ToLower() == "valorant")
-                {
                     return true;
-                }
             }
             return false;
         }
