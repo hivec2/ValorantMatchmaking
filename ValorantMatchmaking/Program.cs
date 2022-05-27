@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ValorantMatchmaking.SDK;
 
 namespace ValorantMatchmaking
 {
@@ -18,6 +19,12 @@ namespace ValorantMatchmaking
         [STAThread]
         static void Main()
         {
+            if (!Directory.Exists(LocalData.valorantAPICachePath))
+            {
+                GameData.apiCacheVerified = false;
+                SDK.LocalData.VerifyAPICache();
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

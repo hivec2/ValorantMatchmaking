@@ -27,13 +27,8 @@ namespace ValorantMatchmaking
 
         private void InitializationButton_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists(LocalData.valorantAPICachePath))
-            {
-                GameData.apiCacheVerified = false;
-                SDK.LocalData.VerifyAPICache();
-            }
-            else
-            {
+           
+          
                 SDK.GameData.GetVersionData();
                 SDK.LocalData.VerifyAPICache();
                 //if (GameData.IsRunning())
@@ -48,7 +43,7 @@ namespace ValorantMatchmaking
                 //}
 
                 PanelDataContainer.Refresh();
-            }
+            
            
         }
     }

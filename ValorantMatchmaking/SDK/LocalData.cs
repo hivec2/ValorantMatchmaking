@@ -16,7 +16,7 @@ namespace ValorantMatchmaking.SDK
         private static string _riotClientLockfileLocation { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Riot Games\\Riot Client\\Config\\lockfile";
         private static string _riotClientPlatform { get; set; } = "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9";
 
-        public static string valorantAPICachePath { get; set; } = Application.StartupPath + "\\ValorantAPICache\\";
+        public static string valorantAPICachePath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\ValorantMatchmaking\\ValorantAPICache\\";
 
         public static int riotClientPort { get; set; } = 0;
         public static string riotClientPassword { get; set; } = string.Empty;
