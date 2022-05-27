@@ -15,9 +15,16 @@ namespace ValorantMatchmaking.UI
     {
         public string playerName { get; set; } = "placeholder#1000";
         public PlayerData.Agent playerAgent { get; set; } = PlayerData.Agent.Jett;
-        public PlayerData.Rank playerRank { get; set; } = PlayerData.Rank.Radiant;
-        public int playerRankedRating { get; set; } = 50;
-        public int playerElo { get; set; } = 820;
+        public PlayerData.Rank playerRank { get; set; } = PlayerData.Rank.Unranked;
+        public int playerRankedRating { get; set; } = 0;
+        public int playerElo { get; set; } = 0;
+        public int playerWins { get; set; } = 1;
+        public int playerLoses { get; set; } = 1;
+        public int playerTotalGames { get; set; } = 2;
+        public double playerWinRate { get; set; } = 0.0;
+        public double playerSmurfChance { get; set; } = 0.0;
+        public int playerValorantPoints { get; set; } = 0;
+        public int playerRadianitePoints { get; set; } = 0;
 
         public Brush backgroundBrush { get; set; } = new SolidBrush(Color.FromArgb(35, 5, 20));
         public Brush backgroundOutlineBrush { get; set; } = new SolidBrush(Color.FromArgb(55, 21, 30));
@@ -47,6 +54,9 @@ namespace ValorantMatchmaking.UI
             Rectangle rankProgress = new Rectangle() { X = 105, Y = 31, Height = 3, Width = (int)((playerRankedRating / 100f) * 368f) };
             Rectangle rankProgressOutline = new Rectangle() { X = 104, Y = 30, Height = 5, Width = 370 };
 
+            playerTotalGames = playerWins + playerLoses;
+            playerWinRate = playerWins / playerTotalGames;
+
             e.Graphics.FillRectangle(backgroundOutlineBrush, backgroundOutline);
             e.Graphics.FillRectangle(backgroundBrush, background);
 
@@ -59,16 +69,16 @@ namespace ValorantMatchmaking.UI
             e.Graphics.DrawString(playerName, playerNameFont, playerNameBrush,  100, 10);
 
             e.Graphics.DrawString($"Elo: {playerElo}", playerDataFont, playerDataBrush, 145, 45);
-            e.Graphics.DrawString($"WR: 82%", playerDataFont, playerDataBrush, 145, 65);
+            e.Graphics.DrawString($"WR: {playerWinRate}%", playerDataFont, playerDataBrush, 145, 65);
 
             e.Graphics.DrawString($"RR: {playerRankedRating}", playerDataFont, playerDataBrush, 225, 45);
-            e.Graphics.DrawString($"SC: 22%", playerDataFont, playerDataBrush, 225, 65);
+            e.Graphics.DrawString($"SC: {playerSmurfChance}%", playerDataFont, playerDataBrush, 225, 65);
 
-            e.Graphics.DrawString($"Wins: 12", playerDataFont, playerDataBrush, 305, 45);
-            e.Graphics.DrawString($"Loses: 2", playerDataFont, playerDataBrush, 305, 65);
+            e.Graphics.DrawString($"Wins: {playerWins}", playerDataFont, playerDataBrush, 305, 45);
+            e.Graphics.DrawString($"Loses: {playerLoses}", playerDataFont, playerDataBrush, 305, 65);
 
-            e.Graphics.DrawString($"VP: 1200", playerDataFont, playerDataBrush, 385, 45);
-            e.Graphics.DrawString($"RP: 240", playerDataFont, playerDataBrush, 385, 65);
+            e.Graphics.DrawString($"VP: {playerValorantPoints}", playerDataFont, playerDataBrush, 385, 45);
+            e.Graphics.DrawString($"RP: {playerRadianitePoints}", playerDataFont, playerDataBrush, 385, 65);
         }
     }
 }
