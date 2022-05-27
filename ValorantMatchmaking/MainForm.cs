@@ -27,22 +27,22 @@ namespace ValorantMatchmaking
 
         private void InitializationButton_Click(object sender, EventArgs e)
         {
-           
-          
-                SDK.GameData.GetVersionData();
-                SDK.LocalData.VerifyAPICache();
-                //if (GameData.IsRunning())
-                //{
+            SDK.GameData.GetVersionData();
+            SDK.LocalData.VerifyAPICache();
 
+            if (GameData.IsRunning())
+            {
+                SDK.LocalData.GetLockfileData();
+                SDK.LocalData.GetTokens();
+                SDK.GameData.GetUserAccountData();
+            }
+            else
+            {
+                EventLogContainer.AddLogElement("Error: Valorant isnt Running.");
+                Logger.Instance.Error("Application failed to initialize | Game isnt running.");
+            }
 
-                //}
-                //else
-                //{
-                //    EventLogContainer.AddLogElement("Error: Valorant isnt Running.");
-                //    Logger.Instance.Error("Application failed to initialize | Game isnt running.");
-                //}
-
-                PanelDataContainer.Refresh();
+            PanelDataContainer.Refresh();
             
            
         }
