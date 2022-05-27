@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ValorantMatchmaking.SDK
@@ -22,6 +23,12 @@ namespace ValorantMatchmaking.SDK
         public static string clientUserIdentifier { get; set; } = string.Empty;
 
         public static string currentSeason { get; set; } = string.Empty;
+        public static string liveMatchIdentifier { get; set; } = string.Empty;
+        public static string lastMatchIdentifier { get; set; } = string.Empty;
+
+        public static bool matchPlayerListNeedsRebuilt { get; set; } = false;
+
+        public static List<PlayerData> matchPlayerList { get; set; } = new List<PlayerData>();
 
         public static bool IsRunning()
         {
@@ -141,6 +148,65 @@ namespace ValorantMatchmaking.SDK
                             }
                         }
                     }
+                }
+            }
+        }
+        public static void GetMatchIdentifier()
+        {
+            try
+            {
+
+                if (Logger.Instance.verbose)
+                    Logger.Instance.Info($"Attempting to get the current Match ID");
+
+                if (Logger.Instance.verbose)
+                    Logger.Instance.Info($"Creating a request to https://glz-{LocalData.riotClientShard}-1.{LocalData.riotClientRegion}.a.pvp.net/core-game/v1/players/{clientUserIdentifier}");
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://glz-{LocalData.riotClientShard}-1.{LocalData.riotClientRegion}.a.pvp.net/core-game/v1/players/{clientUserIdentifier}");
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
+                request.Headers.Add("X-Riot-Entitlements-JWT", $"{LocalData.riotClientEntitlementToken}");
+                request.Headers.Add("Authorization", $"Bearer {LocalData.riotClientAccessToken}");
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            JToken matchJsonData = JObject.FromObject(JsonConvert.DeserializeObject(reader.ReadToEnd()));
+
+                            if (liveMatchIdentifier == string.Empty)
+                                liveMatchIdentifier = (string)matchJsonData["MatchID"];
+
+                            if (liveMatchIdentifier == lastMatchIdentifier)
+                                matchPlayerListNeedsRebuilt = false;
+                            else
+                            {
+                                matchPlayerListNeedsRebuilt = true;
+                                matchPlayerList.Clear();
+                            }
+
+                            if (lastMatchIdentifier == string.Empty)
+                                lastMatchIdentifier = (string)matchJsonData["MatchID"];
+
+                            if (Logger.Instance.verbose)
+                                Logger.Instance.Info($"Retrieved the Match ID");
+
+                            Logger.Instance.Info($"Live Match ID: {liveMatchIdentifier}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.ToString().Contains("404"))
+                {
+                    Logger.Instance.Info($"User isnt in a match...");
+                    Logger.Instance.Info($"Sleeping for 10 seconds");
+                    Thread.Sleep(10000);
+                }
+                else
+                {
+                    Logger.Instance.Error(ex.ToString());
                 }
             }
         }

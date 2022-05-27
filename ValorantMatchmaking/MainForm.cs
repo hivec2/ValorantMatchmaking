@@ -37,6 +37,7 @@ namespace ValorantMatchmaking
                 SDK.GameData.GetUserAccountData();
                 SDK.LocalData.GetRegion();
                 SDK.GameData.GetSeason();
+                SDK.GameData.GetMatchIdentifier();
             }
             else
             {
