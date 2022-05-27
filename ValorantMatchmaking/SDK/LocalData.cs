@@ -22,6 +22,8 @@ namespace ValorantMatchmaking.SDK
         public static string riotClientPassword { get; set; } = string.Empty;
         public static string riotClientAccessToken { get; set; } = string.Empty;
         public static string riotClientEntitlementToken { get; set; } = string.Empty;
+        public static string riotClientRegion { get; set; } = string.Empty;
+        public static string riotClientShard { get; set; } = string.Empty;
         public static void GetLockfileData()
         {
             if (Logger.Instance.verbose)
@@ -163,6 +165,40 @@ namespace ValorantMatchmaking.SDK
                 GameData.apiCacheVerified = true;
 
                 client.Dispose();
+            }
+        }
+        public static void GetRegion()
+        {
+            if (Logger.Instance.verbose)
+                Logger.Instance.Info("Attempting to get Local Region & Shard");
+
+            if (Logger.Instance.verbose)
+                Logger.Instance.Info($"Creating a request to https://127.0.0.1:{LocalData.riotClientPort}/product-session/v1/external-sessions");
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://127.0.0.1:{LocalData.riotClientPort}/product-session/v1/external-sessions");
+            System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
+            request.Headers.Add("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{riotClientPassword}"))}");
+            request.Headers.Add("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
+            request.Headers.Add("X-Riot-ClientVersion", $"{GameData.clientVersion}");
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                using (Stream stream = response.GetResponseStream())
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        var regionData = JObject.Parse(reader.ReadToEnd());
+                        var regionDataObject = (JProperty)regionData.First;
+                        string regionString = (string)regionDataObject.Value["launchConfiguration"]["arguments"][3];
+                        riotClientRegion = regionString.Split('=')[1];
+                        riotClientShard = regionString.Split('=')[1];
+
+                        if (Logger.Instance.verbose)
+                            Logger.Instance.Info($"Retrieved Server Region & Shard | Region: {riotClientRegion} ");
+
+                        Logger.Instance.Info($"Server Region: {riotClientRegion} ");
+                        Logger.Instance.Info($"Server Shard: {riotClientShard} ");
+                    }
+                }
             }
         }
     }

@@ -35,6 +35,8 @@ namespace ValorantMatchmaking
                 SDK.LocalData.GetLockfileData();
                 SDK.LocalData.GetTokens();
                 SDK.GameData.GetUserAccountData();
+                SDK.LocalData.GetRegion();
+                SDK.GameData.GetSeason();
             }
             else
             {

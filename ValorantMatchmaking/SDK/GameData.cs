@@ -21,6 +21,8 @@ namespace ValorantMatchmaking.SDK
         public static string clientTagline { get; set; } = string.Empty;
         public static string clientUserIdentifier { get; set; } = string.Empty;
 
+        public static string currentSeason { get; set; } = string.Empty;
+
         public static bool IsRunning()
         {
             List<Process> processList = Process.GetProcesses().ToList();
@@ -82,6 +84,7 @@ namespace ValorantMatchmaking.SDK
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://auth.riotgames.com/userinfo");
             System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
             request.Headers.Add("Authorization", $"Bearer {LocalData.riotClientAccessToken}");
+
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
                 using (Stream stream = response.GetResponseStream())
@@ -99,6 +102,44 @@ namespace ValorantMatchmaking.SDK
                             Logger.Instance.Info("Retrieved all User Information");
 
                         Console.Title = $"Logged in as {clientUsername}#{clientTagline} -> {clientUserIdentifier}";
+                    }
+                }
+            }
+        }
+        public static void GetSeason()
+        {
+            if (Logger.Instance.verbose)
+                Logger.Instance.Info("Attempting to get the Active Season");
+
+            if (Logger.Instance.verbose)
+                Logger.Instance.Info($"Creating a request to https://shared.{LocalData.riotClientRegion}.a.pvp.net/content-service/v3/content");
+
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"https://shared.{LocalData.riotClientRegion}.a.pvp.net/content-service/v3/content");
+            System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
+            request.Headers.Add("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"riot:{LocalData.riotClientPassword}"))}");
+            request.Headers.Add("X-Riot-Entitlements-JWT", $"{LocalData.riotClientEntitlementToken}");
+            request.Headers.Add("X-Riot-ClientPlatform", "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
+            request.Headers.Add("X-Riot-ClientVersion", $"{GameData.clientVersion}");
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                using (Stream stream = response.GetResponseStream())
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        dynamic seasonData = JsonConvert.DeserializeObject(reader.ReadToEnd());
+
+                        foreach (var season in seasonData.Seasons)
+                        {
+                            if (season.Type == "act" && season.IsActive == true)
+                            {
+                                currentSeason = season.ID;
+
+                                if (Logger.Instance.verbose)
+                                    Logger.Instance.Info($"Retrieved the Active Season: {currentSeason}");
+                            }
+                        }
                     }
                 }
             }
